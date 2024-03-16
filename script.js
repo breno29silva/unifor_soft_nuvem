@@ -52,9 +52,9 @@ function insertItem(item, index) {
   let tr = document.createElement('tr')
 
   tr.innerHTML = `
-    <td>${item.nome}</td>
-    <td>${item.disciplina}</td>
-    <td>${item.tarefa}</td>
+    <td>${item.name}</td>
+    <td>${item.lastName}</td>
+    <td>${item.func}</td>
     <td class="acao">
       <button onclick="editItem(${index})"><i class='bx bx-edit' ></i></button>
     </td>
@@ -76,7 +76,7 @@ btnSalvar.onclick = e => {
   if (id !== undefined) {
     itens[id].name = userName.value
     itens[id].lastName = userLastName.value
-    itens[id].tunc = userFunc.value
+    itens[id].func = userFunc.value
   } else {
     itens.push({'name': userName.value, 'lastName': userLastName.value, 'func': userFunc.value})
   }
@@ -90,6 +90,9 @@ btnSalvar.onclick = e => {
 
 function loadItens() {
   itens = getItensBD()
+  
+  console.log(itens)
+  
   tbody.innerHTML = ''
   itens.forEach((item, index) => {
     insertItem(item, index)
@@ -99,7 +102,7 @@ function loadItens() {
 
 
 const getItensBD = () => JSON.parse(localStorage.getItem('unifor')) ?? []
-const setItensBD = () => localStorage.setItem('dbfunc', JSON.stringify(itens))
+const setItensBD = () => localStorage.setItem('unifor', JSON.stringify(itens))
 
 loadItens()
 
@@ -117,10 +120,7 @@ const lista = async () => {
 };
 
 const inserir = async () => {
-  const myNewObject = new Parse.Object('
-  
-  
-  ');
+  const myNewObject = new Parse.Object('');
   myNewObject.set('descricao', inputdescricao.value);
   myNewObject.set('concluida', false);
   inputdescricao.value = "";
