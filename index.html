@@ -24,10 +24,10 @@
         <thead>
           <tr>
             <th>Nome</th>
-			<th>Sobrenome</th>
+			      <th>Sobrenome</th>
             <th>Função</th>
-            <th class="acao">Editar</th>
-            <th class="acao">Excluir</th>
+            <th>Tarefas</th>
+            <th class="acao">Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -50,7 +50,16 @@
         </form>
       </div>
     </div>
-
+    <div class="modal-tasks-container">
+      <div class="modal-tasks">
+        <form>
+          <label for="m-task">Tarefa</label>
+          <input id="tasks" type="text" required />
+  
+          <button id="btnAdd">Add</button>
+        </form>
+      </div>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>

@@ -6,11 +6,15 @@ Parse.initialize(
 );
 
 const modal = document.querySelector('.modal-container')
+const modalTask = document.querySelector('.modal-tasks-container')
 const tbody = document.querySelector('tbody')
 const userName = document.querySelector('#name')
 const userLastName = document.querySelector('#lastName')
 const userFunc = document.querySelector('#func')
+const userTasks = document.querySelector('#tasks')
 const btnSalvar = document.querySelector('#btnSalvar')
+const btnAdd = document.querySelector('#btnAdd')
+
 
 let itens
 let id
@@ -34,7 +38,20 @@ function openModal(edit = false, index = 0) {
     userLastName.value = ''
     userFunc.value = ''
   }
-  
+
+}
+function openTaskModal(index = 0) {
+  modalTask.classList.add('active')
+
+  modalTask.onclick = e => {
+    if (e.target.className.indexOf('modal-tasks-container') !== -1) {
+      modalTask.classList.remove('active')
+    }
+  }
+
+  userTasks.value = ""
+  id = index
+
 }
 
 function editItem(index) {
@@ -55,18 +72,31 @@ function insertItem(item, index) {
     <td>${item.name}</td>
     <td>${item.lastName}</td>
     <td>${item.func}</td>
+    ${item.tasks.length > 0 ? `<td>${item.tasks?.join(", ")}.</td>` : "<td></td>"}
     <td class="acao">
       <button onclick="editItem(${index})"><i class='bx bx-edit' ></i></button>
-    </td>
-    <td class="acao">
+      <button onclick="openTaskModal(${index})"><i class='bx bx-task'></i></button>
       <button onclick="deleteItem(${index})"><i class='bx bx-trash'></i></button>
     </td>
   `
   tbody.appendChild(tr)
 }
 
+btnAdd.onclick = e => {
+  if (userTasks.value === "" ) {
+    return
+  }
+
+  e.preventDefault();
+  itens[id].tasks.push(userTasks.value);
+
+  setItensBD();
+  modalTask.classList.remove('active')
+  loadItens();
+  id = undefined;
+}
+
 btnSalvar.onclick = e => {
-  
   if (userName.value == '' || userLastName.value == '' || userFunc.value == '') {
     return
   }
@@ -78,7 +108,7 @@ btnSalvar.onclick = e => {
     itens[id].lastName = userLastName.value
     itens[id].func = userFunc.value
   } else {
-    itens.push({'name': userName.value, 'lastName': userLastName.value, 'func': userFunc.value})
+    itens.push({ 'name': userName.value, 'lastName': userLastName.value, 'func': userFunc.value, 'tasks': [] })
   }
 
   setItensBD()
@@ -90,9 +120,9 @@ btnSalvar.onclick = e => {
 
 function loadItens() {
   itens = getItensBD()
-  
+
   console.log(itens)
-  
+
   tbody.innerHTML = ''
   itens.forEach((item, index) => {
     insertItem(item, index)
@@ -100,12 +130,10 @@ function loadItens() {
 
 }
 
-
 const getItensBD = () => JSON.parse(localStorage.getItem('unifor')) ?? []
 const setItensBD = () => localStorage.setItem('unifor', JSON.stringify(itens))
 
 loadItens()
-
 
 const lista = async () => {
   const cadastro = Parse.Object.extend('cadastro');
@@ -135,15 +163,15 @@ const inserir = async () => {
 };
 
 const removertarefa = async (evt2, tarefa) => {
-    tarefa.set(evt2.target.remove);
-    try {
-      const response = await tarefa.destroy();
-      console.log('Delet ParseObject', response);
-      lista();
-    } catch (error) {
-      console.error('Error while updating Tarefa', error);
-    }
-  };
+  tarefa.set(evt2.target.remove);
+  try {
+    const response = await tarefa.destroy();
+    console.log('Delet ParseObject', response);
+    lista();
+  } catch (error) {
+    console.error('Error while updating Tarefa', error);
+  }
+};
 
 const checktarefa = async (evt, tarefa, txt) => {
   tarefa.set('concluida', evt.target.checked);

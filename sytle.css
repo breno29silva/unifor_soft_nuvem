@@ -133,16 +133,16 @@ tbody tr td.acao {
     margin-right: 0;
   }
 
-  .modal {
+  .modal, .modal-tasks {
     width: 90%!important;
   }
 
-  .modal label {
+  .modal label, .modal-tasks label {
     font-size: 12px!important;
   }
 }
 
-.modal-container {
+.modal-container, .modal-tasks-container {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -155,7 +155,7 @@ tbody tr td.acao {
   justify-content: center;
 }
 
-.modal {
+.modal, .modal-tasks {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -165,12 +165,12 @@ tbody tr td.acao {
   width: 50%;
 }
 
-.modal label {
+.modal label, .modal-tasks label {
   font-size: 14px;
   width: 100%;
 }
 
-.modal input {
+.modal input, .modal-tasks input {
   width: 100%;
   outline: none;
   padding: 5px 10px; 
@@ -181,7 +181,7 @@ tbody tr td.acao {
   border-right: none;
 }
 
-.modal button {
+.modal button, .modal-tasks button {
   width: 100%;
   margin: 10px auto;
   outline: none;
@@ -197,7 +197,7 @@ tbody tr td.acao {
   display: flex;
 }
 
-.active .modal {
+.active .modal, .modal-tasks {
   animation: modal .4s;
 }
 
@@ -211,6 +211,7 @@ tbody tr td.acao {
     transform: translate3d(0, 0, 0);
   }
 }
+
 
 td button {
   border: none;
