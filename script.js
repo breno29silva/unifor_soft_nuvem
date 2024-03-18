@@ -9,6 +9,7 @@ const modal = document.querySelector('.modal-container')
 const modalTask = document.querySelector('.modal-tasks-container')
 const tbody = document.querySelector('tbody')
 const userName = document.querySelector('#name')
+const userSetor = document.querySelector('#setor')
 const userLastName = document.querySelector('#lastName')
 const userFunc = document.querySelector('#func')
 const userTasks = document.querySelector('#tasks')
@@ -31,12 +32,15 @@ function openModal(edit = false, index = 0) {
   if (edit) {
     userName.value = itens[index].name
     userLastName.value = itens[index].lastName
+    userSetor.value = itens[index].Setor
     userFunc.value = itens[index].func
     id = index
   } else {
     userName.value = ''
     userLastName.value = ''
+    userSetor.value = ''
     userFunc.value = ''
+    
   }
 
 }
@@ -71,6 +75,7 @@ function insertItem(item, index) {
   tr.innerHTML = `
     <td>${item.name}</td>
     <td>${item.lastName}</td>
+    <td>${item.setor}</td>
     <td>${item.func}</td>
     ${item.tasks.length > 0 ? `<td>${item.tasks?.join(", ")}.</td>` : "<td></td>"}
     <td class="acao">
@@ -106,9 +111,10 @@ btnSalvar.onclick = e => {
   if (id !== undefined) {
     itens[id].name = userName.value
     itens[id].lastName = userLastName.value
+    itens[id].setor = userSetor.value
     itens[id].func = userFunc.value
   } else {
-    itens.push({ 'name': userName.value, 'lastName': userLastName.value, 'func': userFunc.value, 'tasks': [] })
+    itens.push({ 'name': userName.value, 'lastName': userLastName.value, 'setor': userSetor.value, 'func': userFunc.value, 'tasks': [] })
   }
 
   setItensBD()
