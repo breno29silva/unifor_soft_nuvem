@@ -32,7 +32,7 @@ function openModal(edit = false, index = 0) {
   if (edit) {
     userName.value = itens[index].name
     userLastName.value = itens[index].lastName
-    userSetor.value = itens[index].Setor
+    userSetor.value = itens[index].setor
     userFunc.value = itens[index].func
     id = index
   } else {
