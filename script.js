@@ -16,7 +16,6 @@ const userTasks = document.querySelector('#tasks')
 const btnSalvar = document.querySelector('#btnSalvar')
 const btnAdd = document.querySelector('#btnAdd')
 
-
 let itens
 let id
 
@@ -40,10 +39,9 @@ function openModal(edit = false, index = 0) {
     userLastName.value = ''
     userSetor.value = ''
     userFunc.value = ''
-    
   }
-
 }
+
 function openTaskModal(index = 0) {
   modalTask.classList.add('active')
 
@@ -55,11 +53,9 @@ function openTaskModal(index = 0) {
 
   userTasks.value = ""
   id = index
-
 }
 
 function editItem(index) {
-
   openModal(true, index)
 }
 
@@ -133,7 +129,6 @@ function loadItens() {
   itens.forEach((item, index) => {
     insertItem(item, index)
   })
-
 }
 
 const getItensBD = () => JSON.parse(localStorage.getItem('unifor')) ?? []
@@ -144,6 +139,7 @@ loadItens()
 const lista = async () => {
   const cadastro = Parse.Object.extend('cadastro');
   const query = new Parse.Query(cadastro);
+
   try {
     const results = await query.find();
     vetortarefas = results;
@@ -155,10 +151,12 @@ const lista = async () => {
 
 const inserir = async () => {
   const myNewObject = new Parse.Object('');
+
   myNewObject.set('descricao', inputdescricao.value);
   myNewObject.set('concluida', false);
   inputdescricao.value = "";
   inputdescricao.focus();
+
   try {
     const result = await myNewObject.save();
     console.log('Tarefa created', result);
@@ -170,6 +168,7 @@ const inserir = async () => {
 
 const removertarefa = async (evt2, tarefa) => {
   tarefa.set(evt2.target.remove);
+
   try {
     const response = await tarefa.destroy();
     console.log('Delet ParseObject', response);
@@ -181,6 +180,7 @@ const removertarefa = async (evt2, tarefa) => {
 
 const checktarefa = async (evt, tarefa, txt) => {
   tarefa.set('concluida', evt.target.checked);
+  
   try {
     const response = await tarefa.save();
     console.log(response.get('concluida'));
