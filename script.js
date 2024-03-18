@@ -1,8 +1,8 @@
-Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
-// Remember to inform BOTH the Back4App Application ID AND the JavaScript KEY
+Parse.serverURL = 'https://parseapi.back4app.com';
+
 Parse.initialize(
-  'DTLoiWzUtIYPysxVYHODEQ1uykksCoQSyXSMRlDT', // This is your Application ID
-  'wtIAXkH6W3oRqINGTHNCm5PB3eRZUvOh5mi92Xwl' // This is your Javascript key
+  'DTLoiWzUtIYPysxVYHODEQ1uykksCoQSyXSMRlDT',
+  'wtIAXkH6W3oRqINGTHNCm5PB3eRZUvOh5mi92Xwl'
 );
 
 const modal = document.querySelector('.modal-container')
@@ -13,8 +13,10 @@ const userSetor = document.querySelector('#setor')
 const userLastName = document.querySelector('#lastName')
 const userFunc = document.querySelector('#func')
 const userTasks = document.querySelector('#tasks')
+const userStatus = document.querySelector('#status')
 const btnSalvar = document.querySelector('#btnSalvar')
 const btnAdd = document.querySelector('#btnAdd')
+
 
 let itens
 let id
@@ -33,12 +35,13 @@ function openModal(edit = false, index = 0) {
     userLastName.value = itens[index].lastName
     userSetor.value = itens[index].setor
     userFunc.value = itens[index].func
+    userStatus.value = itens[index].status
     id = index
   } else {
-    userName.value = ''
-    userLastName.value = ''
-    userSetor.value = ''
-    userFunc.value = ''
+      userName.value = ''
+      userLastName.value = ''
+      userSetor.value = ''
+      userFunc.value = ''
   }
 }
 
@@ -74,6 +77,7 @@ function insertItem(item, index) {
     <td>${item.setor}</td>
     <td>${item.func}</td>
     ${item.tasks.length > 0 ? `<td>${item.tasks?.join(", ")}.</td>` : "<td></td>"}
+    <td>${item.status}</td>
     <td class="acao">
       <button onclick="editItem(${index})"><i class='bx bx-edit' ></i></button>
       <button onclick="openTaskModal(${index})"><i class='bx bx-task'></i></button>
@@ -109,8 +113,9 @@ btnSalvar.onclick = e => {
     itens[id].lastName = userLastName.value
     itens[id].setor = userSetor.value
     itens[id].func = userFunc.value
+    itens[id].status = userStatus.value;
   } else {
-    itens.push({ 'name': userName.value, 'lastName': userLastName.value, 'setor': userSetor.value, 'func': userFunc.value, 'tasks': [] })
+    itens.push({ 'name': userName.value, 'lastName': userLastName.value, 'setor': userSetor.value, 'func': userFunc.value, 'tasks': [], 'status': userStatus.value });
   }
 
   setItensBD()

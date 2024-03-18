@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,6 +27,7 @@
             <th>Setor</th>
             <th>Função</th>
             <th>Tarefas</th>
+            <th>Status do Funcionário</th>
             <th class="acao">Ações</th>
           </tr>
         </thead>
@@ -49,6 +50,15 @@
   
           <label for="m-tarefa">Função</label>
           <input id="func" type="text" required />
+
+          <label for="m-status">Status do Funcionário</label>
+          <select id="status" class="StatusOptions" required>
+            <option value="Ativo">Ativo</option>
+            <option value="Inativo">Inativo</option>
+            <option value="Em licença">Em licença</option>
+            <option value="Férias">Férias</option>
+          </select>
+
           <button id="btnSalvar">Salvar</button>
         </form>
       </div>
@@ -64,7 +74,9 @@
         </form>
       </div>
     </div>
+
   </div>
   <script src="script.js"></script>
 </body>
+
 </html>
