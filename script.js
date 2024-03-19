@@ -76,7 +76,7 @@ function insertItem(item, index) {
     <td>${item.lastName}</td>
     <td>${item.setor}</td>
     <td>${item.func}</td>
-    ${item.tasks.length > 0 ? `<td>${item.tasks?.join(", ")}.</td>` : "<td></td>"}
+    ${item.tasks?.length > 0 ? `<td>${item.tasks?.join(", ")}.</td>` : "<td></td>"}
     <td>${item.status}</td>
     <td class="acao">
       <button onclick="editItem(${index})"><i class='bx bx-edit' ></i></button>
